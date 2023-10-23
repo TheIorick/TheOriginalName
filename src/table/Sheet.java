@@ -7,55 +7,24 @@ import java.util.Date;
 public class Sheet {
     private ArrayList<ArrayList<TableCell>> rows;
     private ArrayList<TableCell> columns;
-    public static class TableCell {
 
-        // приватные поля для хранения значения ячейки
-        private String stringValue;
-        private int intValue;
-        private LocalDate dateValue;
-        private boolean isEmpty;
+    public static class TableCell <T> {
+        private T value;
 
-        public TableCell(boolean isEmpty) {
-            this.isEmpty = isEmpty;
+        public TableCell(T value) {
+            this.value = value;
         }
 
-        public TableCell(LocalDate dateValue) {
-            this.dateValue = dateValue;
+        public T getValue() {
+            return value;
         }
 
-        public TableCell(int intValue) {
-            this.intValue = intValue;
+        public void setValue(T value) {
+            this.value = value;
         }
-
-        public TableCell(String stringValue) {
-            this.stringValue = stringValue;
-        }
-
-        public String getStringValue() {
-            return stringValue;
-        }
-
-        public void setStringValue(String stringValue) {
-            this.stringValue = stringValue;
-        }
-
-        public int getIntValue() {
-            return intValue;
-        }
-
-        public void setIntValue(int intValue) {
-            this.intValue = intValue;
-        }
-
-        public LocalDate getDateValue() {
-            return dateValue;
-        }
-
-        public void setDateValue(LocalDate dateValue) {
-            this.dateValue = dateValue;
-        }
-
     }
+
+    public class TableCell1<T>{}
     private int lengthRow;
     private int depthColumn;
 
@@ -164,36 +133,19 @@ public class Sheet {
 
     public void setValueInCell(ArrayList<ArrayList<TableCell>> rows, int numberRow, int numberColumn, int value){
         TableCell cell = searchCell(rows, numberRow, numberColumn);
-        cell.intValue = value;
-        cell.stringValue = null;
-        cell.dateValue = null;
-        cell.isEmpty = false;
+        cell.setValue(value);
     }
     public void setValueInCell(ArrayList<ArrayList<TableCell>> rows, int numberRow, int numberColumn, String value){
         TableCell cell = searchCell(rows, numberRow, numberColumn);
-        cell.stringValue = value;
-        cell.dateValue = null;
-        cell.intValue = 0;
-        cell.isEmpty = false;
+        cell.setValue(value);
     }
     public void setValueInCell(ArrayList<ArrayList<TableCell>> rows, int numberRow, int numberColumn, LocalDate value){
         TableCell cell = searchCell(rows, numberRow, numberColumn);
-        cell.dateValue = value;
-        cell.stringValue = null;
-        cell.intValue = 0;
-        cell.isEmpty = false;
+        cell.setValue(value);
     }
 
     public Object getValueFromCell(ArrayList<ArrayList<TableCell>> rows, int numberRow, int numberColumn){
         TableCell cell = searchCell(rows, numberRow, numberColumn);
-        if(!cell.isEmpty){
-            if (cell.stringValue != null){
-                return cell.stringValue;
-            } else if (cell.dateValue != null) {
-                return cell.dateValue;
-            }
-            return cell.intValue;
-        }
-        return null;
+        return cell.getValue();
     }
 }

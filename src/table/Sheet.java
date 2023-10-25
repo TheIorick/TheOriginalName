@@ -3,12 +3,12 @@ package table;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+
 //лист таблицы (по факту сама таблица)
 public class Sheet {
     private ArrayList<ArrayList<TableCell>> rows;
-    private ArrayList<TableCell> columns;
 
-    public static class TableCell <T> {
+    public static class TableCell<T> {
         private T value;
 
         public TableCell(T value) {
@@ -22,9 +22,9 @@ public class Sheet {
         public void setValue(T value) {
             this.value = value;
         }
+
     }
 
-    public class TableCell1<T>{}
     private int lengthRow;
     private int depthColumn;
 
@@ -34,14 +34,6 @@ public class Sheet {
 
     public void setRows(ArrayList<ArrayList<TableCell>> rows) {
         this.rows = rows;
-    }
-
-    public ArrayList<TableCell> getColumns() {
-        return columns;
-    }
-
-    public void setColumns(ArrayList<TableCell> column) {
-        this.columns = column;
     }
 
     public int getLengthRow() {
@@ -66,86 +58,102 @@ public class Sheet {
         this.depthColumn = depthColumn;
     }
 
-    public void addRow(ArrayList<ArrayList<TableCell>> rows){
+    public Sheet() {
+        this.rows = new ArrayList<>();
+        this.lengthRow = 0;
+        this.depthColumn = 0;
+    }
+
+    public void addRow() {
         ArrayList<TableCell> newColumns = new ArrayList<TableCell>();
         alignmentOneRow(newColumns);
         rows.add(newColumns);
         depthColumn++;
     }
 
-    public void addRowOnNumber(ArrayList<ArrayList<TableCell>> rows, int number){
-        if(number >= depthColumn) {
-            for (int i = depthColumn; i < number; i++){
-                ArrayList<TableCell> newColumn = new ArrayList<>();
-                alignmentOneRow(newColumn);
-                rows.add(newColumn);
-                depthColumn++;
-            }
-        } else{
-            ArrayList<TableCell> newColumn = new ArrayList<>();
-            rows.add(number, newColumn);
-            depthColumn++;
-        }
-    }
+//    public void addRowOnNumber(int number) {
+//        if (number >= depthColumn) {
+//            for (int i = depthColumn; i < number; i++) {
+//                ArrayList<TableCell> newColumn = new ArrayList<>();
+//                alignmentOneRow(newColumn);
+//                rows.add(newColumn);
+//                depthColumn++;
+//            }
+//        } else {
+//            ArrayList<TableCell> newColumn = new ArrayList<>();
+//            rows.add(number, newColumn);
+//            depthColumn++;
+//        }
+//    }
 
-    public void addColumn(ArrayList<ArrayList<TableCell>> rows){
-        if (rows == null){
+    public void addColumn() {
+        if (rows == null) {
             ArrayList<TableCell> newColumns = new ArrayList<>();
-            TableCell cell = new TableCell(true);
+            TableCell cell = new TableCell(null);
             newColumns.add(cell);
             rows.add(newColumns);
             depthColumn++;
             lengthRow++;
         } else {
             lengthRow++;
-            alignmentAllRows(rows);
+            alignmentAllRows();
         }
     }
 
     //выравнивание всех строк в таблице, приводим их к прямоугольному виду...
-    private void alignmentAllRows(ArrayList<ArrayList<TableCell>> rows){
-        TableCell cell = new TableCell(true);
-        for (var i : rows){
+    private void alignmentAllRows() {
+        TableCell cell = new TableCell(null);
+        for (var i : rows) {
             alignmentOneRow(i);
         }
     }
+
     //Выравнивание одной строки
-    private void alignmentOneRow(ArrayList<TableCell> row){
-        TableCell cell = new TableCell(true);
-        while(row.size() < lengthRow){
-            row.add(cell);
+    private void alignmentOneRow(ArrayList<TableCell> columns) {
+        TableCell cell = new TableCell(null);
+        while (columns.size() < lengthRow | columns.size() == 0) {
+            columns.add(cell);
         }
     }
 
-    public TableCell searchCell(ArrayList<ArrayList<TableCell>> rows, int numberRow, int numberColumn){
-        if (numberRow < depthColumn){
-            while(lengthRow < numberColumn){
-                addColumn(rows);
-            }
-            return rows.get(numberRow-1).get(numberColumn-1);
-        } else{
+    //Поиск ячейки
+    public TableCell searchCell(int numberRow, int numberColumn) {
+//        if (numberRow < depthColumn) {
+//            while (lengthRow < numberColumn) {
+//                addColumn();
+//            }
+//          return rows.get(numberRow-1).get(numberColumn-1);
+//        } else{
             while(depthColumn < numberRow){
-                addRow(rows);
+                addRow();
             }
-        }
-        return rows.get(numberRow).get(numberColumn);
+            while (lengthRow < numberColumn) {
+                addColumn();
+            }
+//        }
+        return rows.get(numberRow-1).get(numberColumn - 1);
     }
 
-    public void setValueInCell(ArrayList<ArrayList<TableCell>> rows, int numberRow, int numberColumn, int value){
-        TableCell cell = searchCell(rows, numberRow, numberColumn);
-        cell.setValue(value);
-    }
-    public void setValueInCell(ArrayList<ArrayList<TableCell>> rows, int numberRow, int numberColumn, String value){
-        TableCell cell = searchCell(rows, numberRow, numberColumn);
-        cell.setValue(value);
-    }
-    public void setValueInCell(ArrayList<ArrayList<TableCell>> rows, int numberRow, int numberColumn, LocalDate value){
-        TableCell cell = searchCell(rows, numberRow, numberColumn);
+    public void setValueInCell(int numberRow, int numberColumn, int value) {
+        TableCell cell = searchCell(numberRow, numberColumn);
         cell.setValue(value);
     }
 
-    public Object getValueFromCell(ArrayList<ArrayList<TableCell>> rows, int numberRow, int numberColumn){
-        TableCell cell = searchCell(rows, numberRow, numberColumn);
+    public void setValueInCell(int numberRow, int numberColumn, String value) {
+        TableCell cell = searchCell(numberRow, numberColumn);
+        cell.setValue(value);
+    }
+
+    public void setValueInCell(int numberRow, int numberColumn, LocalDate value) {
+        TableCell cell = searchCell(numberRow, numberColumn);
+        cell.setValue(value);
+    }
+
+    public Object getValueFromCell(int numberRow, int numberColumn) {
+        TableCell cell = searchCell(numberRow, numberColumn);
         return cell.getValue();
     }
+//    private ArrayList<ArrayList<TableCell>> searchRows( int numberRow){
+//
+//    }
 }

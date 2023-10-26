@@ -62,6 +62,7 @@ public class Sheet {
         this.rows = new ArrayList<>();
         this.lengthRow = 0;
         this.depthColumn = 0;
+        addColumn();
     }
 
     public void addRow() {
@@ -71,23 +72,9 @@ public class Sheet {
         depthColumn++;
     }
 
-//    public void addRowOnNumber(int number) {
-//        if (number >= depthColumn) {
-//            for (int i = depthColumn; i < number; i++) {
-//                ArrayList<TableCell> newColumn = new ArrayList<>();
-//                alignmentOneRow(newColumn);
-//                rows.add(newColumn);
-//                depthColumn++;
-//            }
-//        } else {
-//            ArrayList<TableCell> newColumn = new ArrayList<>();
-//            rows.add(number, newColumn);
-//            depthColumn++;
-//        }
-//    }
 
     public void addColumn() {
-        if (rows == null) {
+        if (rows.size() == 0) {
             ArrayList<TableCell> newColumns = new ArrayList<>();
             TableCell cell = new TableCell(null);
             newColumns.add(cell);
@@ -110,8 +97,9 @@ public class Sheet {
 
     //Выравнивание одной строки
     private void alignmentOneRow(ArrayList<TableCell> columns) {
-        TableCell cell = new TableCell(null);
+        TableCell cell;
         while (columns.size() < lengthRow | columns.size() == 0) {
+            cell = new TableCell(null);
             columns.add(cell);
         }
     }
@@ -153,7 +141,4 @@ public class Sheet {
         TableCell cell = searchCell(numberRow, numberColumn);
         return cell.getValue();
     }
-//    private ArrayList<ArrayList<TableCell>> searchRows( int numberRow){
-//
-//    }
 }

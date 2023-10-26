@@ -1,31 +1,57 @@
 import printTable.OutputConsole;
+import printTable.UserInteraction;
+import table.Filter;
+import table.Group;
 import table.Sheet;
+import table.WorkWithFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        UserInteraction userInteraction = new UserInteraction();
+        userInteraction.startUsing();
 
+//        OutputConsole outputConsole = new OutputConsole();
+//
+//        Sheet sheet = new Sheet();
+//        sheet.searchCell(9, 9);
+//        System.out.println();
+//        LocalDate date = LocalDate.of(2021, 5, 12);
+//        sheet.setValueInCell( 3, 7, date);
+//        sheet.setValueInCell( 6, 1, 120123);
+//        sheet.setValueInCell( 5, 3, "Hek");
+//
+//        sheet.setValueInCell( 6, 2, "Hek");
+//        outputConsole.printSheet(sheet, new Filter(), new Group());
+//        System.out.println();
+//
+//        Filter filter = new Filter(sheet, 1);
+//        System.out.println();
+//        outputConsole.printSheet(sheet, filter);
+//        System.out.println();
+//        filter.removeFromVisibleRows( 3);
+//        filter.removeFromVisibleRows( 5);
+//        outputConsole.printSheet(sheet, filter, new Group());
+//        System.out.println();
+//        outputConsole.printAllCellsFromFilter(sheet, filter);
+//        System.out.println();
+//        filter.addVisibleRows(sheet, 5);
+//        filter = new Filter();
+//        Group group = new Group();
+//        group.setLeftColumnNumber(2);
+//        group.setRightColumnNumber(7);
+//        group.setLowerRowNumber(5);
+//        group.setTopRowNumber(4);
+//        System.out.println();
+//        outputConsole.printSheet(sheet, new Filter(), group);
 
-        OutputConsole outputConsole = new OutputConsole();
-
-        Sheet sheet = new Sheet();
-        sheet.searchCell(3, 4);
-        LocalDate date = LocalDate.of(2021, 5, 12);
-        sheet.setValueInCell( 3, 4, date);
-        sheet.setValueInCell( 4, 5, 120123);
-        sheet.setValueInCell( 5, 6, "Hek");
-//        System.out.println(sheet.getValueFromCell( 3, 4));
-//        System.out.println(sheet.getValueFromCell( 4, 5));
-//        System.out.println(sheet.getValueFromCell(5, 6));
-        sheet.setValueInCell( 6, 9, "Hek");
-        System.out.println(outputConsole.searchMaxLengthInColumn(sheet));
-        System.out.println();
-        sheet.setValueInCell( 1, 6, "Hek");
-//        sheet.setValueInCell( 2, 2, "Hek");
-//        sheet.setValueInCell( 1, 2, "Hek");
-//        sheet.setValueInCell( 1, 1, "Hek");
-
-        outputConsole.printSheet(sheet);
+//
+//        WorkWithFile work = new WorkWithFile();
+//        work.saveInFile("test", sheet);
+//        Sheet sheet1 = work.LoadFromFile("test");
+//        outputConsole.printSheet(sheet1, new Filter(), new Group());
+//
     }
 }

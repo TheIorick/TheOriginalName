@@ -1,12 +1,6 @@
-import printTable.OutputConsole;
 import printTable.UserInteraction;
-import table.Filter;
-import table.Group;
-import table.Sheet;
-import table.WorkWithFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) throws IOException {

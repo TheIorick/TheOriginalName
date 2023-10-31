@@ -2,7 +2,6 @@ package table;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 //лист таблицы (по факту сама таблица)
 public class Sheet {
@@ -22,7 +21,6 @@ public class Sheet {
         public void setValue(T value) {
             this.value = value;
         }
-
     }
 
     private int lengthRow;
@@ -42,10 +40,6 @@ public class Sheet {
 
     public void setLengthRow(int lengthRow) {
         this.lengthRow = lengthRow;
-    }
-
-    public int getDepthColumn() {
-        return depthColumn;
     }
 
     public void setDepthColumn(int depthColumn) {
@@ -106,12 +100,6 @@ public class Sheet {
 
     //Поиск ячейки
     public TableCell searchCell(int numberRow, int numberColumn) {
-//        if (numberRow < depthColumn) {
-//            while (lengthRow < numberColumn) {
-//                addColumn();
-//            }
-//          return rows.get(numberRow-1).get(numberColumn-1);
-//        } else{
             while(depthColumn < numberRow){
                 addRow();
             }
@@ -123,6 +111,10 @@ public class Sheet {
     }
 
     public void setValueInCell(int numberRow, int numberColumn, int value) {
+        TableCell cell = searchCell(numberRow, numberColumn);
+        cell.setValue(value);
+    }
+    public void setValueInCell(int numberRow, int numberColumn, double value) {
         TableCell cell = searchCell(numberRow, numberColumn);
         cell.setValue(value);
     }

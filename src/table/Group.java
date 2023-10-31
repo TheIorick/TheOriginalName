@@ -14,38 +14,25 @@ public class Group {
 
     public void setTopRowNumber(int topRowNumber) {
         this.topRowNumber = topRowNumber;
-        if (topRowNumber > 0){
-            rowGroupStatus = true;
-        } else {
-            rowGroupStatus = false;
-        }
+        rowGroupStatus = topRowNumber > 0;
     }
 
     public void setLowerRowNumber(int lowerRowNumber) {
         this.lowerRowNumber = lowerRowNumber;
-        if (lowerRowNumber > 0){
-            rowGroupStatus = true;
-        } else {
-            rowGroupStatus = false;
-        }
+        rowGroupStatus = lowerRowNumber > 0;
     }
 
     public void setLeftColumnNumber(int leftColumnNumber) {
         this.leftColumnNumber = leftColumnNumber;
-        if (leftColumnNumber > 0){
-            columnGroupStatus = true;
-        } else {
+        if (leftColumnNumber > 0) columnGroupStatus = true;
+        else {
             columnGroupStatus = false;
         }
     }
 
     public void setRightColumnNumber(int rightColumnNumber) {
         this.rightColumnNumber = rightColumnNumber;
-        if (rightColumnNumber > 0){
-            columnGroupStatus = true;
-        } else {
-            columnGroupStatus = false;
-        }
+        columnGroupStatus = rightColumnNumber > 0;
     }
 
     public boolean isRowGroupStatus() {

@@ -2,12 +2,13 @@ package table;
 
 import java.util.ArrayList;
 
+import static table.Sheet.*;
+
 public class Filter {
-    private boolean status;
-    private Sheet sheet;
+    private final boolean status;
 
     private int numberColumn;
-    private ArrayList<Sheet.TableCell> allCellsFromColumn;
+    private ArrayList<TableCell> allCellsFromColumn;
 
     private ArrayList<Integer> numberRowsVisible;
 
@@ -15,15 +16,11 @@ public class Filter {
         return status;
     }
 
-    public Sheet getSheet() {
-        return sheet;
-    }
-
     public int getNumberColumn() {
         return numberColumn;
     }
 
-    public ArrayList<Sheet.TableCell> getAllCellsFromColumn() {
+    public ArrayList<TableCell> getAllCellsFromColumn() {
         return allCellsFromColumn;
     }
 
@@ -33,7 +30,6 @@ public class Filter {
 
     public Filter(Sheet sheet, int numberColumn) {
         this.status = true;
-        this.sheet = sheet;
         this.numberColumn = numberColumn - 1;
         this.allCellsFromColumn = getAllCellsFromColumn(sheet, numberColumn - 1);
         this.numberRowsVisible = getNumbersRowsForVisible(this.allCellsFromColumn);
@@ -43,9 +39,9 @@ public class Filter {
         this.status = false;
     }
 
-    private ArrayList<Sheet.TableCell> getAllCellsFromColumn(Sheet sheet, int numberColumn){
-        ArrayList<Sheet.TableCell> allCellsFromColumn = new ArrayList<>();
-        for (ArrayList<Sheet.TableCell> row : sheet.getRows()){
+    private ArrayList<TableCell> getAllCellsFromColumn(Sheet sheet, int numberColumn){
+        ArrayList<TableCell> allCellsFromColumn = new ArrayList<>();
+        for (ArrayList<TableCell> row : sheet.getRows()){
             allCellsFromColumn.add(row.get(numberColumn));
         }
         return allCellsFromColumn;
@@ -58,7 +54,7 @@ public class Filter {
         numberRowsVisible.add(numberRow - 1, numberRow);
     }
 
-    private ArrayList<Integer> getNumbersRowsForVisible(ArrayList<Sheet.TableCell> allCellsFromColumn){
+    private ArrayList<Integer> getNumbersRowsForVisible(ArrayList<TableCell> allCellsFromColumn){
         ArrayList <Integer> numbersRows = new ArrayList<>();
         for(int i = 0; i < allCellsFromColumn.size(); i++){
             //+1 нужен т.к. в таблице индексация с 1;

@@ -2,6 +2,8 @@ package table;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class WorkWithFile {
     public void saveInFile(String nameFile, Sheet sheet) throws IOException {
@@ -24,16 +26,28 @@ public class WorkWithFile {
         Sheet sheet = new Sheet();
         FileReader reader = new FileReader(nameFile + ".csv");
         BufferedReader br = new BufferedReader(reader);
-        String line = "";
+        String line;
+        String regexInt = "\\d+";
+        String regexDouble = "\\d+(\\.\\d+)?";
+        Pattern patternInt = Pattern.compile(regexInt);
+        Pattern patternDouble = Pattern.compile(regexDouble);
         int cntRow = 0;
         while ((line = br.readLine()) != null){
-            cntRow++;
             String[] values = line.split(",");
             for (int i = 0; i < values.length; i++){
+                //на третьей минуте пояснение
                 try {
-                    int num = Integer.parseInt(values[i]);
-                    sheet.setValueInCell(cntRow+1, i+1, num);
-                    continue;
+                    Matcher matcherInt = patternInt.matcher(values[i]);
+                    Matcher matcherDouble = patternDouble.matcher(values[i]);
+                    if (matcherInt.find()){
+                        int num = Integer.parseInt(values[i]);
+                        sheet.setValueInCell(cntRow+1, i+1, num);
+                        continue;
+                    } else if (matcherDouble.find()){
+                        double num = Double.parseDouble(values[i]);
+                        sheet.setValueInCell(cntRow+1, i+1, num);
+                        continue;
+                    }
                 } catch (Exception e) {
                 }
                 if (values[i].equals("null")){
@@ -41,7 +55,9 @@ public class WorkWithFile {
                     continue;
                 }
                 sheet.setValueInCell(cntRow+1, i+1, values[i]);
+
             }
+            cntRow++;
         }
         br.close();
         return sheet;

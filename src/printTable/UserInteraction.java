@@ -1,31 +1,31 @@
 package printTable;
 
-import org.w3c.dom.ls.LSOutput;
-import table.Filter;
-import table.Group;
-import table.Sheet;
-import table.WorkWithFile;
+import table.*;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class UserInteraction {
-    final String PRESS_0 = "Чтобы увидеть таблицу целиком введите                   0";
-    final String PRESS_1 = "Чтобы установить значение в ячейке введите              1";
-    final String PRESS_2 = "Чтобы запустить фильтр введите                          2";
-    final String PRESS_3 = "Чтобы убрать строку с помощью фильтра введите           3";
-    final String PRESS_4 = "Чтобы вернуть строку с помощью фильтра введите          4";
-    final String PRESS_5 = "Чтобы отключить фильтр введите                          5";
-    final String PRESS_6 = "Чтобы сгруппировать по строкам и по столбцам введите    6";
-    final String PRESS_7 = "Чтобы сгруппировать по строкам  введите                 7";
-    final String PRESS_8 = "Чтобы сгруппировать по столбцам введите                 8";
-    final String PRESS_9 = "Чтобы отключить группировку введите                     9";
-    final String PRESS_10 = "Чтобы сохранить таблицу в файл введите                 10";
-    final String PRESS_11 = "Чтобы загрузить таблицу из файла введите               11";
-    final String PRESS_12 = "Чтобы выйти введите                                    12";
+    final private UpdateDataFormat update = new UpdateDataFormat();
+    final String PRESS_0 = "Чтобы увидеть таблицу целиком введите                       0";
+    final String PRESS_1 = "Чтобы установить значение (int, String) в ячейке введите    1";
+    final String PRESS_2 = "Чтобы установить значение (Date) в ячейке введите           2";
+    final String PRESS_3 = "Чтобы запустить фильтр введите                              3";
+    final String PRESS_4 = "Чтобы убрать строку с помощью фильтра введите               4";
+    final String PRESS_5 = "Чтобы вернуть строку с помощью фильтра введите              5";
+    final String PRESS_6 = "Чтобы отключить фильтр введите                              6";
+    final String PRESS_7 = "Чтобы сгруппировать по строкам и по столбцам введите        7";
+    final String PRESS_8 = "Чтобы сгруппировать по строкам  введите                     8";
+    final String PRESS_9 = "Чтобы сгруппировать по столбцам введите                     9";
+    final String PRESS_10 = "Чтобы отключить группировку введите                        10";
+    final String PRESS_11 = "Чтобы сохранить таблицу в файл введите                     11";
+    final String PRESS_12 = "Чтобы загрузить таблицу из файла введите                   12";
+    final String PRESS_13 = "Чтобы выйти введите                                        13";
     final String ENTER_NUMBER_ROW = "Введите номер строки";
-    final String ENTER_NUMBER_COLUMN = "Введите имя файла";
-    final String ENTER_NAME_FILE = "Введите ";
+    final String ENTER_NUMBER_COLUMN = "Введите номер столбца";
+    final String ENTER_NAME_FILE = "Введите имя файла ";
     final String START_GROUP = " c какого начнется группировка";
     final String END_GROUP = " по какой будет группировка";
     final String GROUP_TABLE = "Сгруппированная таблица";
@@ -59,8 +59,9 @@ public class UserInteraction {
             System.out.println(PRESS_10);
             System.out.println(PRESS_11);
             System.out.println(PRESS_12);
+            System.out.println(PRESS_13);
             usersText = scanner.nextLine();
-            if(usersText.equals("12")){
+            if(usersText.equals("13")){
                 break;
             }
             switch (usersText){
@@ -71,16 +72,31 @@ public class UserInteraction {
                 case "1":
                     System.out.println(ENTER_NUMBER_ROW);
                     numberRow = scanner.nextInt();
-                    System.out.println();
+                    System.out.println(ENTER_NUMBER_COLUMN);
                     numberColumn = scanner.nextInt();
                     scanner.nextLine();
-                    System.out.println(ENTER_NUMBER_COLUMN);
+                    System.out.println("Введите значение");
                     value = scanner.nextLine();
                     sheet.setValueInCell(numberRow, numberColumn, value);
                     System.out.println();
                     console.printSheet(sheet, new Filter(), new Group());
                     break;
                 case "2":
+                    System.out.println(ENTER_NUMBER_ROW);
+                    numberRow = scanner.nextInt();
+                    System.out.println(ENTER_NUMBER_COLUMN);
+                    numberColumn = scanner.nextInt();
+                    scanner.nextLine();
+                    printFormat(scanner);
+                    scanner.nextLine();
+                    String dateString = enterDate(scanner);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(update.getFormatInMoment());
+                    LocalDateTime date = LocalDateTime.parse(dateString, formatter);
+                    sheet.setValueInCell(numberRow, numberColumn, date);
+                    System.out.println();
+                    console.printSheet(sheet, new Filter(), new Group());
+                    break;
+                case "3":
                     System.out.println(ENTER_NUMBER_COLUMN);
                     numberColumn = scanner.nextInt();
                     filter = new Filter(sheet, numberColumn);
@@ -89,7 +105,7 @@ public class UserInteraction {
                     System.out.println();
                     console.printAllCellsFromFilter(sheet, filter);
                     break;
-                case "3":
+                case "4":
                     System.out.println();
                     System.out.println(ALL_VALUES_FROM_COLUMN_FOR_WORK_FILTER);
                     System.out.println();
@@ -100,7 +116,7 @@ public class UserInteraction {
                     filter.removeFromVisibleRows(numberRow);
                     console.printSheet(sheet, filter, new Group());
                     break;
-                case "4":
+                case "5":
                     System.out.println();
                     System.out.println("Все значения столбца и номера строк для которого работает фильтр");
                     System.out.println();
@@ -111,11 +127,11 @@ public class UserInteraction {
                     filter.addVisibleRows(numberRow);
                     console.printSheet(sheet, filter, new Group());
                     break;
-                case "5":
+                case "6":
                     filter = new Filter();
                     System.out.println("Фильтр выключен");
                     break;
-                case "6":
+                case "7":
                     System.out.println(ENTER_NUMBER_ROW + START_GROUP);
                     group.setLowerRowNumber(scanner.nextInt());
                     System.out.println(ENTER_NUMBER_ROW + END_GROUP);
@@ -128,7 +144,7 @@ public class UserInteraction {
                     System.out.println(GROUP_TABLE);
                     console.printSheet(sheet, new Filter(), group);
                     break;
-                case "7":
+                case "8":
                     System.out.println(ENTER_NUMBER_ROW + START_GROUP);
                     group.setTopRowNumber(scanner.nextInt());
                     System.out.println(ENTER_NUMBER_ROW + END_GROUP);
@@ -137,7 +153,7 @@ public class UserInteraction {
                     System.out.println(GROUP_TABLE);
                     console.printSheet(sheet, new Filter(), group);
                     break;
-                case "8":
+                case "9":
                     System.out.println(ENTER_NUMBER_COLUMN + START_GROUP);
                     group.setLeftColumnNumber(scanner.nextInt());
                     System.out.println(ENTER_NUMBER_COLUMN + END_GROUP);
@@ -146,17 +162,17 @@ public class UserInteraction {
                     System.out.println("Сгруппированная таблица");
                     console.printSheet(sheet, new Filter(), group);
                     break;
-                case "9":
+                case "10":
                     group = new Group();
                     System.out.println("Группировка выключена");
                     break;
-                case "10":
+                case "11":
                     System.out.println(ENTER_NAME_FILE);
                     work.saveInFile(scanner.nextLine(), sheet);
                     System.out.println();
                     System.out.println("Файл сохранен");
                     break;
-                case "11":
+                case "12":
                     System.out.println(ENTER_NAME_FILE);
                     sheet = work.LoadFromFile(scanner.nextLine());
                     System.out.println();
@@ -164,5 +180,42 @@ public class UserInteraction {
                     break;
             }
         }
+    }
+
+    private void printFormat(Scanner scanner){
+        System.out.println("Выберите один формат даты для записи из уже существующих ");
+        System.out.println("Или создайте новый ");
+        System.out.println("(Введите номер)");
+        for (int i = 0; i  < update.getDateFormats().size(); i++){
+            System.out.println("#" + " " + (i + 1) + "  " + update.getDateFormats().get(i));
+        }
+        System.out.println("#" + " "+ (update.getDateFormats().size() + 1) + "  " + "Создать новый формат");
+        int number = scanner.nextInt();
+        if(number >= update.getDateFormats().size() + 1){
+            System.out.println("Введите новый формат, где");
+            System.out.println("yyyy - год");
+            System.out.println("MM - месяц");
+            System.out.println("dd - день");
+            System.out.println("HH - часы");
+            System.out.println("mm - минуты");
+            System.out.println("ss - секунды");
+            scanner.nextLine();
+            update.addNewFormat(scanner.nextLine());
+        } else {
+            update.setFormatInMoment(number);
+        }
+    }
+
+    private String enterDate(Scanner scanner){
+        System.out.println("Введите значение даты в соответствии с заданным форматом: ");
+        System.out.println("yyyy - год");
+        System.out.println("MM - месяц");
+        System.out.println("dd - день");
+        System.out.println("HH - часы");
+        System.out.println("mm - минуты");
+        System.out.println("ss - секунды");
+        System.out.println(update.getFormatInMoment());
+        String date = scanner.nextLine();
+        return date;
     }
 }

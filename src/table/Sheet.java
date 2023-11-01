@@ -1,7 +1,9 @@
 package table;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 
 //лист таблицы (по факту сама таблица)
 public class Sheet {
@@ -14,7 +16,7 @@ public class Sheet {
             this.value = value;
         }
 
-        public T getValue() {
+        public Object getValue() {
             return value;
         }
 
@@ -60,7 +62,7 @@ public class Sheet {
     }
 
     public void addRow() {
-        ArrayList<TableCell> newColumns = new ArrayList<TableCell>();
+        ArrayList<TableCell> newColumns = new ArrayList<>();
         alignmentOneRow(newColumns);
         rows.add(newColumns);
         depthColumn++;
@@ -68,9 +70,9 @@ public class Sheet {
 
 
     public void addColumn() {
-        if (rows.size() == 0) {
+        if (rows.isEmpty()) {
             ArrayList<TableCell> newColumns = new ArrayList<>();
-            TableCell cell = new TableCell(null);
+            TableCell<String> cell = new TableCell<>(null);
             newColumns.add(cell);
             rows.add(newColumns);
             depthColumn++;
@@ -83,7 +85,7 @@ public class Sheet {
 
     //выравнивание всех строк в таблице, приводим их к прямоугольному виду...
     private void alignmentAllRows() {
-        TableCell cell = new TableCell(null);
+        TableCell<String> cell = new TableCell<String>(null);
         for (var i : rows) {
             alignmentOneRow(i);
         }
@@ -91,42 +93,54 @@ public class Sheet {
 
     //Выравнивание одной строки
     private void alignmentOneRow(ArrayList<TableCell> columns) {
-        TableCell cell;
-        while (columns.size() < lengthRow | columns.size() == 0) {
-            cell = new TableCell(null);
+        TableCell<String> cell;
+        while (columns.size() < lengthRow | columns.isEmpty()) {
+            cell = new TableCell<String>(null);
             columns.add(cell);
         }
     }
 
     //Поиск ячейки
     public TableCell searchCell(int numberRow, int numberColumn) {
-            while(depthColumn < numberRow){
-                addRow();
-            }
-            while (lengthRow < numberColumn) {
-                addColumn();
-            }
+        while (depthColumn < numberRow) {
+            addRow();
+        }
+        while (lengthRow < numberColumn) {
+            addColumn();
+        }
 //        }
-        return rows.get(numberRow-1).get(numberColumn - 1);
+        return rows.get(numberRow - 1).get(numberColumn - 1);
+    }
+
+    public void updateCell(int numberRow, int numberColumn, TableCell tableCell) {
+        while (depthColumn < numberRow) {
+            addRow();
+        }
+        while (lengthRow < numberColumn) {
+            addColumn();
+        }
+//        }
+        rows.get(numberRow - 1).set(numberColumn - 1, tableCell);
     }
 
     public void setValueInCell(int numberRow, int numberColumn, int value) {
-        TableCell cell = searchCell(numberRow, numberColumn);
-        cell.setValue(value);
+        TableCell<Integer> cell = new TableCell<>(value);
+        updateCell(numberRow, numberColumn, cell);
     }
+
     public void setValueInCell(int numberRow, int numberColumn, double value) {
-        TableCell cell = searchCell(numberRow, numberColumn);
-        cell.setValue(value);
+        TableCell<Double> cell = new TableCell<>(value);
+        updateCell(numberRow, numberColumn, cell);
     }
 
     public void setValueInCell(int numberRow, int numberColumn, String value) {
-        TableCell cell = searchCell(numberRow, numberColumn);
-        cell.setValue(value);
+        TableCell<String> cell = new TableCell<>(value);
+        updateCell(numberRow, numberColumn, cell);
     }
 
-    public void setValueInCell(int numberRow, int numberColumn, LocalDate value) {
-        TableCell cell = searchCell(numberRow, numberColumn);
-        cell.setValue(value);
+    public void setValueInCell(int numberRow, int numberColumn, LocalDateTime value) {
+        TableCell<LocalDateTime> cell = new TableCell<>(value);
+        updateCell(numberRow, numberColumn, cell);
     }
 
     public Object getValueFromCell(int numberRow, int numberColumn) {

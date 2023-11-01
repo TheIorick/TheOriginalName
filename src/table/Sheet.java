@@ -26,6 +26,9 @@ public class Sheet {
     }
 
     private int lengthRow;
+
+
+
     private int depthColumn;
 
     public ArrayList<ArrayList<TableCell>> getRows() {
@@ -42,6 +45,9 @@ public class Sheet {
 
     public void setLengthRow(int lengthRow) {
         this.lengthRow = lengthRow;
+    }
+    public int getDepthColumn() {
+        return depthColumn;
     }
 
     public void setDepthColumn(int depthColumn) {

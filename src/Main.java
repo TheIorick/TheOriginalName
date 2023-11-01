@@ -3,6 +3,7 @@ import printTable.UserInteraction;
 import table.Filter;
 import table.Group;
 import table.Sheet;
+import table.SwapCell;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -12,22 +13,25 @@ import java.time.format.FormatStyle;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        UserInteraction userInteraction = new UserInteraction();
-        userInteraction.startUsing();
+//        UserInteraction userInteraction = new UserInteraction();
+//        userInteraction.startUsing();
 
 //        System.out.println("Parsed Date and Time: " + parsedDateTime);
-//        OutputConsole outputConsole = new OutputConsole();
-//
-//        Sheet sheet = new Sheet();
+        OutputConsole outputConsole = new OutputConsole();
+        SwapCell swapCell = new SwapCell();
+        Sheet sheet = new Sheet();
 //        sheet.searchCell(9, 9);
 //        System.out.println();
-//        LocalDateTime date = LocalDateTime.of(2012, 10, 5, 23, 52);
-//        sheet.setValueInCell( 3, 7, date);
-//        sheet.setValueInCell( 6, 1, 120123);
-//        sheet.setValueInCell( 5, 3, "Hek");
-//
-//        sheet.setValueInCell( 6, 2, "Hek");
-//        outputConsole.printSheet(sheet, new Filter(), new Group());
+        LocalDateTime date = LocalDateTime.of(2012, 10, 5, 23, 52);
+        sheet.setValueInCell( 3, 7, date);
+        sheet.setValueInCell( 6, 1, 120123);
+        sheet.setValueInCell( 5, 3, "Hek");
+
+        sheet.setValueInCell( 6, 2, "Hek");
+        outputConsole.printSheet(sheet, new Filter(), new Group());
+        swapCell.swapColumn(1, 7, sheet);
+        System.out.println();
+        outputConsole.printSheet(sheet, new Filter(), new Group());
 //        System.out.println();
 //
 //        Filter filter = new Filter(sheet, 1);

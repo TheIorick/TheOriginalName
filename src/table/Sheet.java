@@ -182,7 +182,6 @@ public class Sheet {
 
     //выравнивание всех строк в таблице, приводим их к прямоугольному виду...
     private void alignmentAllRows() {
-        TableCell cell = new TableCell();
         for (var i : rows) {
             alignmentOneRow(i);
         }

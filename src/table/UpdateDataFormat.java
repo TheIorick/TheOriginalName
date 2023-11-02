@@ -12,7 +12,7 @@ public class UpdateDataFormat {
         return formatInMoment;
     }
 
-    private ArrayList<String> dateFormats = new ArrayList<>() {{
+    private final ArrayList<String> dateFormats = new ArrayList<>() {{
         add(FULL_DATE_AND_TIME1);
         add(FULL_DATE_AND_TIME2);
         add(FULL_DATE_AND_TIME3);

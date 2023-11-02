@@ -161,15 +161,11 @@ public class OutputConsole {
 
 
     private void addSpace(StringBuilder sb, int numberSpace) {
-        for (int i = 0; i < numberSpace; i++) {
-            sb.append(' ');
-        }
+        sb.append(" ".repeat(Math.max(0, numberSpace)));
     }
 
     private void addDash(StringBuilder sb, int numberDash) {
-        for (int i = 0; i < numberDash; i++) {
-            sb.append("-");
-        }
+        sb.append("-".repeat(Math.max(0, numberDash)));
     }
 
 }

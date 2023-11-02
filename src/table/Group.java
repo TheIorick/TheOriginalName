@@ -24,10 +24,7 @@ public class Group {
 
     public void setLeftColumnNumber(int leftColumnNumber) {
         this.leftColumnNumber = leftColumnNumber;
-        if (leftColumnNumber > 0) columnGroupStatus = true;
-        else {
-            columnGroupStatus = false;
-        }
+        columnGroupStatus = leftColumnNumber > 0;
     }
 
     public void setRightColumnNumber(int rightColumnNumber) {

@@ -62,12 +62,4 @@ public class Filter {
         }
         return numbersRows;
     }
-//аналогичная история как и с offGroup
-//    public void offFilter (Filter filter){
-//        filter.status = false;
-//        filter.allCellsFromColumn = null;
-//        filter.numberRowsVisible = null;
-//        filter.numberColumn = 0;
-//    }
-
 }

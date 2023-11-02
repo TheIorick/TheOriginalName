@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="876c8747-504b-4b01-91ed-ade3784d33fd" name="Changes" comment="add Constants">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    <list default="true" id="876c8747-504b-4b01-91ed-ade3784d33fd" name="Changes" comment="update TableCell">
       <change beforePath="$PROJECT_DIR$/src/printTable/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/printTable/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/printTable/OutputConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/printTable/OutputConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/printTable/UserInteraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/printTable/UserInteraction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/table/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/table/Filter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/table/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/table/Group.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/table/Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/table/Sheet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tz.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tz.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/table/UpdateDataFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/table/UpdateDataFormat.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698826699516</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="update TableCell">
+      <option name="closed" value="true" />
+      <created>1698911708985</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1698911708985</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -207,11 +216,11 @@
     <MESSAGE value="end table" />
     <MESSAGE value="start Filter" />
     <MESSAGE value="The end" />
-    <MESSAGE value="update TableCell" />
     <MESSAGE value="update Date" />
     <MESSAGE value="processing swap" />
     <MESSAGE value="add Constants" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Constants" />
+    <MESSAGE value="update TableCell" />
+    <option name="LAST_COMMIT_MESSAGE" value="update TableCell" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

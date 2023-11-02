@@ -13,7 +13,7 @@ public class UserInteraction implements Constants {
         Scanner scanner = new Scanner(System.in);
         OutputConsole console = new OutputConsole();
         WorkWithFile work = new WorkWithFile();
-        System.out.println("Создана начальная таблица");
+        System.out.println(START);
         System.out.println();
         Sheet sheet = new Sheet();
         Filter filter = new Filter();
@@ -194,7 +194,6 @@ public class UserInteraction implements Constants {
         System.out.println("mm - минуты");
         System.out.println("ss - секунды");
         System.out.println(update.getFormatInMoment());
-        String date = scanner.nextLine();
-        return date;
+        return scanner.nextLine();
     }
 }

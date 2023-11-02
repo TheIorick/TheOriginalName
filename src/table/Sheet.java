@@ -1,27 +1,118 @@
 package table;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Locale;
 
 //лист таблицы (по факту сама таблица)
 public class Sheet {
+    public enum TableCellType {
+        STRING,
+        INT,
+        DOUBLE,
+        DATE,
+        NULL
+    }
     private ArrayList<ArrayList<TableCell>> rows;
 
-    public static class TableCell<T> {
-        private T value;
+    public static class TableCell {
+        private int intValue;
+        private String stringValue;
+        private double doubleValue;
+        private LocalDateTime dateValue;
+        private TableCellType cellType;
 
-        public TableCell(T value) {
-            this.value = value;
+        public TableCell() {
+            this.stringValue = null;
+            cellType = TableCellType.NULL;
+        }
+        public TableCell(int intValue) {
+            this.intValue = intValue;
+            cellType = TableCellType.INT;
+        }
+
+        public TableCell(String stringValue) {
+            this.stringValue = stringValue;
+            cellType = TableCellType.STRING;
+        }
+
+        public TableCell(double doubleValue) {
+            this.doubleValue = doubleValue;
+            cellType = TableCellType.DOUBLE;
+        }
+
+        public TableCell(LocalDateTime dateValue) {
+            this.dateValue = dateValue;
+            cellType = TableCellType.DATE;
         }
 
         public Object getValue() {
-            return value;
+            switch (cellType){
+                case INT -> {
+                    return intValue;
+                }
+                case STRING -> {
+                    return stringValue;
+                }
+                case DOUBLE -> {
+                    return doubleValue;
+                }
+                case DATE -> {
+                    return dateValue;
+                }
+                case NULL -> {
+                    return null;
+                }
+            }
+            return null;
         }
 
-        public void setValue(T value) {
-            this.value = value;
+        public void setValue(int intValue) {
+            this.intValue = intValue;
+            switch (cellType){
+                case STRING -> stringValue = null;
+                case DOUBLE -> doubleValue = 0;
+                case DATE -> dateValue = null;
+            }
+            cellType = TableCellType.INT;
+        }
+
+        public void setValue(String stringValue) {
+            this.stringValue = stringValue;
+            switch (cellType){
+                case INT -> intValue = 0;
+                case DOUBLE -> doubleValue = 0;
+                case DATE -> dateValue = null;
+            }
+            cellType = TableCellType.STRING;
+        }
+        public void setValue(Double doubleValue) {
+            this.doubleValue = doubleValue;
+            switch (cellType){
+                case INT -> intValue = 0;
+                case STRING -> stringValue = null;
+                case DATE -> dateValue = null;
+            }
+            cellType = TableCellType.DOUBLE;
+        }
+        public void setValue(LocalDateTime dateValue) {
+            this.dateValue = dateValue;
+            switch (cellType){
+                case INT -> intValue = 0;
+                case STRING -> stringValue = null;
+                case DOUBLE -> doubleValue = 0;
+            }
+            cellType = TableCellType.DATE;
+        }
+        public void setValue() {
+            this.dateValue = dateValue;
+            switch (cellType){
+                case INT -> intValue = 0;
+                case STRING -> stringValue = null;
+                case DOUBLE -> doubleValue = 0;
+                case DATE -> dateValue = null;
+
+            }
+            cellType = TableCellType.NULL;
         }
     }
 
@@ -78,7 +169,7 @@ public class Sheet {
     public void addColumn() {
         if (rows.isEmpty()) {
             ArrayList<TableCell> newColumns = new ArrayList<>();
-            TableCell<String> cell = new TableCell<>(null);
+            TableCell cell = new TableCell();
             newColumns.add(cell);
             rows.add(newColumns);
             depthColumn++;
@@ -91,7 +182,7 @@ public class Sheet {
 
     //выравнивание всех строк в таблице, приводим их к прямоугольному виду...
     private void alignmentAllRows() {
-        TableCell<String> cell = new TableCell<String>(null);
+        TableCell cell = new TableCell();
         for (var i : rows) {
             alignmentOneRow(i);
         }
@@ -99,9 +190,9 @@ public class Sheet {
 
     //Выравнивание одной строки
     private void alignmentOneRow(ArrayList<TableCell> columns) {
-        TableCell<String> cell;
+        TableCell cell;
         while (columns.size() < lengthRow | columns.isEmpty()) {
-            cell = new TableCell<String>(null);
+            cell = new TableCell();
             columns.add(cell);
         }
     }
@@ -130,22 +221,22 @@ public class Sheet {
     }
 
     public void setValueInCell(int numberRow, int numberColumn, int value) {
-        TableCell<Integer> cell = new TableCell<>(value);
+        TableCell cell = new TableCell(value);
         updateCell(numberRow, numberColumn, cell);
     }
 
     public void setValueInCell(int numberRow, int numberColumn, double value) {
-        TableCell<Double> cell = new TableCell<>(value);
+        TableCell cell = new TableCell(value);
         updateCell(numberRow, numberColumn, cell);
     }
 
     public void setValueInCell(int numberRow, int numberColumn, String value) {
-        TableCell<String> cell = new TableCell<>(value);
+        TableCell cell = new TableCell(value);
         updateCell(numberRow, numberColumn, cell);
     }
 
     public void setValueInCell(int numberRow, int numberColumn, LocalDateTime value) {
-        TableCell<LocalDateTime> cell = new TableCell<>(value);
+        TableCell cell = new TableCell(value);
         updateCell(numberRow, numberColumn, cell);
     }
 

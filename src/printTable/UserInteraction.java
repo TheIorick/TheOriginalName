@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class UserInteraction extends Constants {
+public class UserInteraction implements Constants {
     final private UpdateDataFormat update = new UpdateDataFormat();
     public void startUsing() throws IOException {
         Scanner scanner = new Scanner(System.in);
